@@ -1,0 +1,52 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+venv/
+env/
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Logs
+*.log
+backend/logs/
+
+# Uploaded files, local databases and backups
+backend/storage/
+backend/storage_backup/
+storage/
+uploads/
+*.sqlite
+*.sqlite3
+*.db
+
+# Backup and temporary files
+*.backup
+*.bak
+*.pre_audit_backup
+*.frontend-backup
+audit_test.txt
+testfile.txt
+test_db.py
+test_tampering.py
+reset_test_password.py
+reset_user_password.py
+update_test_accounts.py
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/

@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d18">
+    <title>ZeroTrust | Secure File Sharing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="#">
+                <span class="brand-icon">Z</span>
+                <span><strong>ZeroTrust</strong><small>SECURE WORKSPACE</small></span>
+            </a>
+
+            <div class="nav-label">WORKSPACE</div>
+            <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+            <a class="nav-item" href="#files"><span>▤</span> Secure files</a>
+            <a class="nav-item" href="#security"><span>◈</span> Security status</a>
+
+            <div class="sidebar-bottom">
+                <div class="side-shield">⬡</div>
+                <strong>Security first</strong>
+                <p>Your files are encrypted by the backend before storage.</p>
+                <div class="side-status"><span class="dot"></span> Protected workspace</div>
+            </div>
+            <div class="sidebar-footer">ZERO TRUST PLATFORM <span>v1.0.0</span></div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div>
+                    <div class="eyebrow">SECURE FILE MANAGEMENT</div>
+                    <h1>Security overview</h1>
+                </div>
+                <div class="top-actions">
+                    <span id="apiBadge" class="badge"><span class="dot"></span> Checking API</span>
+                    <button id="logoutBtn" class="button button-quiet hidden">Sign out</button>
+                </div>
+            </header>
+
+            <section class="welcome-panel" id="overview">
+                <div class="welcome-copy">
+                    <div class="welcome-label"><span class="live-dot"></span> ZERO-TRUST WORKSPACE</div>
+                    <h2>Your data.<br><span>Your control.</span></h2>
+                    <p>Secure file sharing with authenticated access, encrypted storage and ownership-based authorization.</p>
+                    <a href="#files" class="button button-primary">Open secure files <span>→</span></a>
+                </div>
+                <div class="shield-art" aria-hidden="true">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="shield-core"><span>✓</span></div>
+                    <div class="orbit-label label-top">AES-256-GCM</div>
+                    <div class="orbit-label label-bottom">ACCESS CONTROL</div>
+                </div>
+            </section>
+
+            <section class="metrics">
+                <article class="metric-card">
+                    <div class="metric-top"><span>API STATUS</span><span class="metric-icon blue">⌘</span></div>
+                    <div class="metric-value" id="healthValue">Checking</div>
+                    <div class="metric-foot" id="healthDetail">Connecting to backend</div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-top"><span>AUTHENTICATION</span><span class="metric-icon purple">◈</span></div>
+                    <div class="metric-value" id="authValue">Signed out</div>
+                    <div class="metric-foot" id="authDetail">Sign in to manage files</div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-top"><span>FILE PROTECTION</span><span class="metric-icon green">⬡</span></div>
+                    <div class="metric-value">AES-256-GCM</div>
+                    <div class="metric-foot">Authenticated encryption</div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-top"><span>MAXIMUM FILE SIZE</span><span class="metric-icon orange">⇧</span></div>
+                    <div class="metric-value">10 MB</div>
+                    <div class="metric-foot">Per file upload</div>
+                </article>
+            </section>
+
+            <div class="content-grid">
+                <section class="panel auth-panel" id="account">
+                    <div class="panel-heading">
+                        <div><div class="eyebrow">IDENTITY & ACCESS</div><h3 id="authHeading">Access your workspace</h3></div>
+                        <span class="heading-icon">◈</span>
+                    </div>
+                    <p class="panel-description" id="authDescription">Sign in or create an account to access your private files.</p>
+
+                    <div id="authForms">
+                        <div class="auth-tabs">
+                            <button class="auth-tab active" data-mode="login" type="button">Sign in</button>
+                            <button class="auth-tab" data-mode="register" type="button">Create account</button>
+                        </div>
+                        <form id="authForm">
+                            <label for="email">Email address</label>
+                            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="254">
+
+                            <label for="password">Password</label>
+                            <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required minlength="1" maxlength="128">
+
+                            <p class="field-hint" id="passwordHint">Use your registered account credentials.</p>
+                            <button id="authSubmit" class="button button-primary full-width" type="submit">Sign in securely <span>→</span></button>
+                        </form>
+                    </div>
+
+                    <div id="signedInPanel" class="signed-in hidden">
+                        <div class="user-avatar">✓</div>
+                        <div><strong id="userEmail"></strong><p>Authenticated session</p></div>
+                        <span class="badge badge-success">Verified</span>
+                    </div>
+                    <div id="authMessage" class="message hidden" role="status" aria-live="polite"></div>
+                </section>
+
+                <section class="panel" id="security">
+                    <div class="panel-heading">
+                        <div><div class="eyebrow">PLATFORM HEALTH</div><h3>Security status</h3></div>
+                        <span class="heading-icon green-text">✓</span>
+                    </div>
+                    <div class="security-row">
+                        <span class="status-symbol">⌁</span>
+                        <div class="security-text"><strong>Backend API</strong><small>FastAPI service availability</small></div>
+                        <span id="apiStatus" class="status-pill">Checking</span>
+                    </div>
+                    <div class="security-row">
+                        <span class="status-symbol">▣</span>
+                        <div class="security-text"><strong>Database</strong><small>Connection health check</small></div>
+                        <span id="dbStatus" class="status-pill">Checking</span>
+                    </div>
+                    <div class="security-row">
+                        <span class="status-symbol">⬡</span>
+                        <div class="security-text"><strong>File encryption</strong><small>Encryption performed by backend</small></div>
+                        <span class="status-pill status-info">AES-GCM</span>
+                    </div>
+                    <div class="security-note"><strong>Zero-trust principle</strong><p>File access requires a valid token and ownership verification on every download request.</p></div>
+                    <button id="refreshHealth" class="button button-outline full-width" type="button">Refresh health status ↻</button>
+                </section>
+            </div>
+
+            <section class="panel files-panel" id="files">
+                <div class="panel-heading files-heading">
+                    <div><div class="eyebrow">PRIVATE STORAGE</div><h3>Secure file manager</h3><p class="panel-description">Upload files for encrypted storage or download files you own.</p></div>
+                    <span class="badge badge-success"><span class="dot"></span> Owner protected</span>
+                </div>
+
+                <div class="file-workspace">
+                    <div class="upload-box">
+                        <div class="upload-icon">⇧</div>
+                        <h4>Upload a secure file</h4>
+                        <p>Supported: TXT, PDF, PNG, JPG, JPEG, CSV</p>
+                        <p class="muted">Maximum size: 10 MB</p>
+                        <form id="uploadForm">
+                            <label class="button button-primary file-picker" for="fileInput">Choose file</label>
+                            <input id="fileInput" type="file" accept=".txt,.pdf,.png,.jpg,.jpeg,.csv" hidden>
+                            <div id="selectedFile" class="selected-file">No file selected</div>
+                            <button id="uploadBtn" class="button button-outline full-width" type="submit" disabled>Encrypt & upload</button>
+                        </form>
+                    </div>
+
+                    <div class="download-box">
+                        <div class="download-title"><div><h4>Download your file</h4><p>Enter the file ID returned after a successful upload.</p></div><span class="download-icon">↓</span></div>
+                        <form id="downloadForm">
+                            <label for="fileId">File ID</label>
+                            <input id="fileId" type="text" placeholder="Paste your file ID" autocomplete="off" spellcheck="false" required maxlength="64" pattern="[a-fA-F0-9]{32}">
+                            <button id="downloadBtn" class="button button-outline full-width" type="submit">Download & decrypt</button>
+                        </form>
+                        <div class="download-tip">Only the file owner can download and decrypt their file.</div>
+                    </div>
+                </div>
+                <div id="fileMessage" class="message hidden" role="status" aria-live="polite"></div>
+            </section>
+
+            <footer class="footer">
+                <span>Secure Zero-Trust File Sharing Platform</span>
+                <span>Built with FastAPI · PostgreSQL · AES-256-GCM</span>
+            </footer>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
