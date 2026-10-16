@@ -1,6 +1,9 @@
 ﻿import jwt
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Request, status
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy import select, text
@@ -19,11 +22,16 @@ from security_logger import log_security_event
 
 Base.metadata.create_all(bind=engine)
 
+limiter = Limiter(key_func=get_remote_address, default_limits=[])
+
 app = FastAPI(
     title="Secure Zero-Trust File Sharing Platform",
     description="Secure file sharing and threat detection API",
     version="1.0.0",
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 bearer_scheme = HTTPBearer()
 
@@ -118,7 +126,9 @@ def register_user(
 
 
 @app.post("/auth/login", response_model=TokenResponse)
+@limiter.limit("5/minute")
 def login_user(
+    request: Request,
     user_data: UserLogin,
     db: Session = Depends(get_db),
 ):
@@ -200,4 +210,5 @@ def get_current_user(
 from file_routes import router as file_router
 
 app.include_router(file_router)
+
 
