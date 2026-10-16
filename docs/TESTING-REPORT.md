@@ -1,4 +1,4 @@
-﻿# Testing and Verification Report
+# Testing and Verification Report
 
 ## 1. Project Information
 
@@ -22,13 +22,13 @@
 |---|---|---|---|
 | PostgreSQL connection test | Connect to the configured database | Connection succeeded; database name verified as `zero_trust_db` | PASS |
 | AES-GCM tampering test | Reject modified encrypted data | Tampered ciphertext was rejected | PASS |
-| Automated test run | Both selected tests pass | 2 tests passed | PASS |
+| Automated test run | All selected automated tests pass | 17 tests passed in 1.10 seconds on 16 October 2026 | PASS |
 | Backend health | Application healthy and database connected | Previously returned healthy status with database connected | PASS |
 | Frontend availability | Frontend responds over HTTP | Previously verified HTTP 200 response | PASS |
 | Cross-user file access | Prevent one user from downloading another user's file | Download attempt returned HTTP 404; access-denied event was logged | PASS |
 | Frontend file checks | Required HTML, CSS, and JavaScript files exist | Previously verified | PASS |
 
-The automated test run covered the PostgreSQL connection and AES-GCM tampering checks. Other results listed above were verified separately during earlier local checks.
+On 16 October 2026, the following automated test files were executed together: test_db.py, test_tampering.py, test_schema_validation.py, test_file_validation.py, and test_file_authorization.py. All 17 tests passed in 1.10 seconds. Other results listed above were verified separately during earlier local checks.
 
 ## 4. Security Verification
 

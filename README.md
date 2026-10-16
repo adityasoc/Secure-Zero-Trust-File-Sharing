@@ -1,4 +1,4 @@
-﻿# Secure Zero-Trust File Sharing Platform
+# Secure Zero-Trust File Sharing Platform
 
 A secure file-sharing web application built with FastAPI, PostgreSQL, and JavaScript.
 
@@ -12,6 +12,8 @@ A secure file-sharing web application built with FastAPI, PostgreSQL, and JavaSc
 - Secure file upload and download
 - PostgreSQL database integration
 - Security event logging
+- Login API rate limiting
+- Automated security tests for input validation, file validation, and file authorization
 - Responsive web interface
 
 ## Technology Stack
@@ -53,17 +55,16 @@ Frontend: http://127.0.0.1:5500
 
 - Password hashing using Argon2
 - JWT-based authentication
-- AES-256-GCM encryption
+- AES-256-GCM file encryption
 - Ownership-based file access restrictions
+- Login API rate limiting
 - Security event logging
 
-Configure PostgreSQL and the required environment variables before starting the application. Never upload your actual .env file or secret keys to GitHub.
-
+Configure PostgreSQL and the required environment variables before starting the application. Never upload your actual `.env` file or secret keys to GitHub.
 ## Future Enhancements
 
 - Automated threat detection and alerting
 - Malware scanning
-- API rate limiting
 - Additional automated security tests
 
 ## Disclaimer
